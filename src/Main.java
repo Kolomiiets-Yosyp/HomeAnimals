@@ -8,11 +8,11 @@ public class Main {
         System.out.println("Введіть число для вибору дії:");
         while (scan!=7){
 
-                scan=1;
-                scan = scanner.nextInt();
+            scan=1;
+            scan = scanner.nextInt();
             switch (scan) {
                 case 1:
-                     // Кейс для виводу списку
+                    // Кейс для виводу списку
                     break;
                 case 2:
                     // Кейс для додавання інформації в список
@@ -32,7 +32,7 @@ public class Main {
 
                 default:
                     System.out.println("Ви ввели невіне значення");
-                   //зробити перехід на кейс 5
+                    //зробити перехід на кейс 5
             }
         }
     }
