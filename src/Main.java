@@ -1,63 +1,94 @@
+import javax.lang.model.element.Name;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.SortedMap;
+import java.util.jar.Attributes;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        ArrayList<String> HomeAnimalsNames = new ArrayList<String>();
+    static int scan = 1;
+    static int i=1;
+    static String inAnimal;
+   static String inName;
 
-        InputStream inputStream = System.in;
-        Reader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-        System.out.println("Enter the name of animal №1");
-        HomeAnimalsNames.add(bufferedReader.readLine());
-        System.out.println("Enter the name of animal №2");
-        HomeAnimalsNames.add(bufferedReader.readLine());
-        System.out.println("Enter the name of animal №3");
-        HomeAnimalsNames.add(bufferedReader.readLine());
-
-        String animalName1 = HomeAnimalsNames.get(0);
-        System.out.println("animalName1 = " + animalName1);
-
-        String animalName2 = HomeAnimalsNames.get(1);
-        System.out.println("animalName2 = " + animalName2);
-
-        String animalName3 = HomeAnimalsNames.get(2);
-        System.out.println("animalName3 = " + animalName3);
+    public static int Animal() throws Exception {
+        FileWriter fileWriter = new FileWriter("text.txt");
 
 
-        boolean quit = false;
+        Scanner scanner = new Scanner(System.in);
+
+
+
+        System.out.println("Enter animal №"+i+": ");
+        AddAnimals<String> Animal= new AddAnimals(inAnimal=scanner.nextLine());
+
+        System.out.println("Write the name of "+ inAnimal+":");
+        NameAnimal<String > nameAnimal= new NameAnimal<String >(inAnimal,inName=scanner.nextLine());
+        System.out.println(nameAnimal);
+
+
+
+
+        return i++;
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        FileWriter fileWriter = new FileWriter("text.txt");
         int menuItem;
-        do {
             try {
+                while (scan != 6) {
                 Scanner in = new Scanner(System.in);
                 System.out.println("MENU Home Animal");
-                for (int i = 1; i <= 3; i++)
-
-                System.out.println(i + ". Amimal name #" + i);
+                System.out.println("Write number: " +
+                        "\n 1.Add animal and name" +
+                        "\n 2.Edit data" +
+                        "\n 3.Delete the animal" +
+                        "\n 4.Search" +
+                        "\n 5.Output of the list" +
+                        "\n 6.Help");
                 System.out.println("0. Quit");
 
-                System.out.println("Chose animal name: ");
                 menuItem = in.nextInt();
 
-                switch (menuItem) {
-                    case 1:
-                        System.out.println("animalName1 = " + animalName1);
-                        break;
-                    case 2:
-                        System.out.println("animalName2 = " + animalName2);
-                        break;
-                    case 3:
-                        System.out.println("animalName3 = " + animalName3);
-                        break;
-                    case 0:
-                        quit = true;
-                        break;
-                } } catch (Exception e) {
-                System.err.println("Please enter a number from 1 to 3");
-            }
-        } while (!quit) ;
-        System.out.println("Good bye!");
-    }
+                    switch (menuItem) {
+                        case 1:
+                            Animal();
+                            try {
+                                fileWriter.write(" Animal: " + inAnimal + "  Name: "+inName+ "\n");
+                            }catch (IOException e){
+                                fileWriter = new FileWriter("text.txt");
+                                fileWriter.write(" Animal: " + inAnimal + ", view: " + inName+ "\n");
+                            }
+                            break;
+                        case 2:
+
+                        case 3:
+
+                        case 4:
+
+                        case 5:
+                            fileWriter.close();
+                            FileReader fileReader =new FileReader("text.txt");
+
+                            int i;
+                            while ((i= fileReader.read())!=-1 ){
+                                System.out.print((char)i);
+                            }
+                            fileReader.close();
+                            System.out.println();
+                            break;
+                        case 6:
+
+                        case 0:
+                            System.out.println("Good bye!");
+                            break;
+                    }
+                }
+            } catch(Exception e){
+                    System.err.println("Please enter a number from 1 to 6");
+                }
+
+        }
+
 }
