@@ -11,6 +11,37 @@ public class Main {
     static String inAnimal;
    static String inName;
 
+    public static class Calculator {
+        @FunctionalInterface
+        interface MathOperation {
+            int operation(int number1, int number2);
+        }
+
+        public int operate(int a, int b, MathOperation mathOperation) {
+            return mathOperation.operation(a, b);
+        }
+
+        private void addition() {
+            MathOperation additionOp = (number1, number2) -> number1 + number2;
+            System.out.println("5 cats + 10 cats = " + operate(5, 10, additionOp) + " cats");
+        }
+
+        private void subtraction() {
+            MathOperation subtractionOp = (number1, number2) -> number1 - number2;
+            System.out.println("20 dogs - 10 dogs = " + operate(20, 10, subtractionOp) + " dogs");
+        }
+
+        private void multiplication() {
+            MathOperation multiplicationOp = (number1, number2) -> number1 * number2;
+            System.out.println("5 fish * 2 fish = " + operate(5, 2, multiplicationOp) + " fish");
+        }
+
+        private void division() {
+            MathOperation divisionOp = (number1, number2) -> number1 / number2;
+            System.out.println("10 guinea pigs / 2 cages = " + operate(10, 2, divisionOp) + " guinea pigs");
+        }
+    }
+
     public static int Animal() throws Exception {
         FileWriter fileWriter = new FileWriter("text.txt");
 
@@ -37,7 +68,7 @@ public class Main {
         FileWriter fileWriter = new FileWriter("text.txt");
         int menuItem;
             try {
-                while (scan != 6) {
+                while (scan != 7) {
                 Scanner in = new Scanner(System.in);
                 System.out.println("MENU Home Animal");
                 System.out.println("Write number: " +
@@ -46,7 +77,8 @@ public class Main {
                         "\n 3.Delete the animal" +
                         "\n 4.Search" +
                         "\n 5.Output of the list" +
-                        "\n 6.Help");
+                        "\n 6.Calculator" +
+                        "\n 7.Help");
                 System.out.println("0. Quit");
 
                 menuItem = in.nextInt();
@@ -79,6 +111,14 @@ public class Main {
                             System.out.println();
                             break;
                         case 6:
+                            Calculator calculator = new Calculator();
+                            calculator.addition();
+                            calculator.subtraction();
+                            calculator.multiplication();
+                            calculator.division();
+                            break;
+
+                        case 7:
 
                         case 0:
                             System.out.println("Good bye!");
@@ -86,7 +126,7 @@ public class Main {
                     }
                 }
             } catch(Exception e){
-                    System.err.println("Please enter a number from 1 to 6");
+                    System.err.println("Please enter a number from 1 to 7");
                 }
 
         }
