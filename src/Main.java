@@ -89,6 +89,16 @@ public class Main {
                             break;
 
                         case 7:
+                            fileWriter.close();
+                            FileReader fileReaderHelp =new FileReader("help.txt");
+
+                            int h;
+                            while ((h= fileReaderHelp.read())!=-1 ){
+                                System.out.print((char)h);
+                            }
+                            fileReaderHelp.close();
+                            System.out.println();
+                            break;
 
                         case 0:
                             System.out.println("Good bye!");

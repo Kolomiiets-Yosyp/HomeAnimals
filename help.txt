@@ -1,0 +1,24 @@
+HOME ANIMALS HELP
+ Using our program you can:
+  !!! Enter the desired item in the command line (from 1 to 7) !!!
+   1 - Add animal and name
+     In this item, you can add an animal and its name by entering this data in the command line.
+	 
+   2 - Edit data about animal
+     In this item, you can edit the data that has already been entered about the animal, if you select which data you want to edit and enter new data in the command line.
+	 
+   3 - Delete the animal
+     In this item, you can delete the data that has already been entered about the animal, if you select which data to delete.
+	 
+   4 - Search animal
+     In this item, you can find the data that has already been written to the file.
+	 
+   5 - Output of the list our animal
+     With the help of this item, you can display a list of all animals that are currently entered.
+	 
+   6 - Calculator animals
+     Select this item if you want to view the count of cats, dogs, fish, and guinea pigs.
+	 
+   0 - Quit and file close
+     Select this option if you want to close the program and exit it.
+	 
