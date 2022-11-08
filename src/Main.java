@@ -97,7 +97,7 @@ break;
                             break;
 
                         case 7:
-                            fileWriter.close();
+
                             FileReader fileReaderHelp =new FileReader("help.txt");
 
                             int h;
