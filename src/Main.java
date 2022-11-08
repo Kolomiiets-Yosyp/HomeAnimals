@@ -1,19 +1,17 @@
-import javax.lang.model.element.Name;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.SortedMap;
-import java.util.jar.Attributes;
 
 public class Main {
+    static Scanner sca= new Scanner(System.in);
+    static Scanner sca1= new Scanner(System.in);
     static int scan = 1;
     static int i=1;
     static String inAnimal;
    static String inName;
+   static int counter=1;
 
 
-    public static int Animal() throws Exception {
-        FileWriter fileWriter = new FileWriter("text.txt");
+    public static void Animal() {
 
 
         Scanner scanner = new Scanner(System.in);
@@ -28,14 +26,18 @@ public class Main {
         System.out.println(nameAnimal);
 
 
-
-
-        return i++;
+        i++;
     }
+public static void Writer() throws IOException {
+    FileWriter fileWriter= new FileWriter("text.txt",true);
+    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+    bufferedWriter.write(counter+") Animal: " + inAnimal + "  Name: "+inName+ "\n");
+    bufferedWriter.close();
+    counter++;
+}
 
+    public static void main(String[] args)  {
 
-    public static void main(String[] args) throws Exception {
-        FileWriter fileWriter = new FileWriter("text.txt");
         int menuItem;
             try {
                 while (scan != 7) {
@@ -56,24 +58,30 @@ public class Main {
                     switch (menuItem) {
                         case 1:
                             Animal();
-                            try {
-                                fileWriter.write(" Animal: " + inAnimal + "  Name: "+inName+ "\n");
-                            }catch (IOException e){
-                                fileWriter = new FileWriter("text.txt");
-                                fileWriter.write(" Animal: " + inAnimal + ", view: " + inName+ "\n");
-                            }
+                            Writer();
+
+
                             break;
                         case 2:
+                           System.out.print("Which animal do you want to edit?\n");
+                           FileReader fileReader =new FileReader("text.txt");
 
+                            while ((i= fileReader.read())!=-1 ){
+                                System.out.print((char)i);
+                            }
+                            fileReader.close();
+                            System.out.println();
+                            int editor = sca1.nextInt();
+
+
+break;
                         case 3:
 
                         case 4:
 
                         case 5:
-                            fileWriter.close();
-                            FileReader fileReader =new FileReader("text.txt");
+                             fileReader =new FileReader("text.txt");
 
-                            int i;
                             while ((i= fileReader.read())!=-1 ){
                                 System.out.print((char)i);
                             }
