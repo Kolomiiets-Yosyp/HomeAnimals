@@ -16,7 +16,7 @@ Scanner scanner= new Scanner(System.in);
             connection= DriverManager.getConnection(url,username,password);
             Statement statement = connection.createStatement();
             PreparedStatement pStatement;
-
+            System.out.println("Enter animal : ");
             String Animal =scanner.nextLine() ;
             System.out.println("Write the name of the animal:");
             String NameAnimal= scanner.nextLine();
@@ -31,7 +31,19 @@ return connection;
 
     }
     public void DBDeleter(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection= DriverManager.getConnection(url,username,password);
+            System.out.println("Enter the number of the animal to be deleted: ");
+            DBOut();
+            int del= scanner1.nextInt();
+            PreparedStatement pStatement=connection.prepareStatement("delete from Animal where id='"+del+"'");
 
+            int i = pStatement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+
+        }
 
     }
 

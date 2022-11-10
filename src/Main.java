@@ -35,7 +35,7 @@ public class Main {
                         case 1:
 
 
-                            System.out.println("Enter animal : ");
+
                             dBconnect.DBConnect();
 
                             break;
@@ -46,7 +46,7 @@ public class Main {
 
 break;
                         case 3:
-
+                                dBconnect.DBDeleter();
                         case 4:
 
                         case 5:
