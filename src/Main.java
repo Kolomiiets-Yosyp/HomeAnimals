@@ -1,4 +1,5 @@
 import java.io.*;
+import java.sql.Connection;
 import java.util.Scanner;
 
 public class Main {
@@ -6,35 +7,10 @@ public class Main {
     static Scanner sca1= new Scanner(System.in);
     static int scan = 1;
     static int i=1;
-    static String inAnimal;
-   static String inName;
-   static int counter=1;
+
+    static DBconnect dBconnect= new DBconnect();
 
 
-    public static void Animal() {
-
-
-        Scanner scanner = new Scanner(System.in);
-
-
-
-        System.out.println("Enter animal №"+i+": ");
-        AddAnimals<String> Animal= new AddAnimals(inAnimal=scanner.nextLine());
-
-        System.out.println("Write the name of "+ inAnimal+":");
-        NameAnimal<String > nameAnimal= new NameAnimal<String >(inAnimal,inName=scanner.nextLine());
-        System.out.println(nameAnimal);
-
-
-        i++;
-    }
-public static void Writer() throws IOException {
-    FileWriter fileWriter= new FileWriter("text.txt",true);
-    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-    bufferedWriter.write(counter+") Animal: " + inAnimal + "  Name: "+inName+ "\n");
-    bufferedWriter.close();
-    counter++;
-}
 
     public static void main(String[] args)  {
 
@@ -57,21 +33,15 @@ public static void Writer() throws IOException {
 
                     switch (menuItem) {
                         case 1:
-                            Animal();
-                            Writer();
 
+
+                            System.out.println("Enter animal : ");
+                            dBconnect.DBConnect();
 
                             break;
                         case 2:
                            System.out.print("Which animal do you want to edit?\n");
-                           FileReader fileReader =new FileReader("text.txt");
 
-                            while ((i= fileReader.read())!=-1 ){
-                                System.out.print((char)i);
-                            }
-                            fileReader.close();
-                            System.out.println();
-                            int editor = sca1.nextInt();
 
 
 break;
@@ -80,13 +50,7 @@ break;
                         case 4:
 
                         case 5:
-                             fileReader =new FileReader("text.txt");
-
-                            while ((i= fileReader.read())!=-1 ){
-                                System.out.print((char)i);
-                            }
-                            fileReader.close();
-                            System.out.println();
+                            dBconnect.DBOut();
                             break;
                         case 6:
                             Calculator calculator = new Calculator();
