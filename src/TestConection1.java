@@ -5,13 +5,6 @@ import java.sql.*;
 
 
     public class TestConection1 {
-        static int scan = 1;
-        static Scanner sca= new Scanner(System.in);
-        static Scanner sca1= new Scanner(System.in);
-        static int i=1;
-        static String inAnimal;
-        static String inName;
-        static int counter=1;
 
         public static final String USER_NAME = "root";
         public static final String PASSWORD = "usbw";
@@ -37,24 +30,51 @@ import java.sql.*;
             }
         }
 
-        public static void Animal() {
-
-            Scanner scanner = new Scanner(System.in);
-
-
-            System.out.println("Enter animal №"+i+": ");
-            AddAnimals<String> Animal= new AddAnimals(inAnimal=scanner.nextLine());
-
-            System.out.println("Write the name of "+ inAnimal+":");
-            NameAnimal<String > nameAnimal= new NameAnimal<String >(inAnimal,inName=scanner.nextLine());
-            System.out.println(nameAnimal);
+        Scanner scanner= new Scanner(System.in);
+        Scanner scanner1 = new Scanner(System.in);
 
 
-            i++;
+        public Connection testConection1() {
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                connection= DriverManager.getConnection(URL,USER_NAME,PASSWORD);
+                Statement statement = connection.createStatement();
+                PreparedStatement pStatement;
+                System.out.println("Enter animal: ");
+                String Animal =scanner.nextLine() ;
+                System.out.println("Enter the name of the animal:");
+                String NameAnimal= scanner.nextLine();
+                System.out.println("Enter the color of the animal:");
+                String ColorAnimal= scanner.nextLine();
+                pStatement=connection.prepareStatement("INSERT into homeanimalstest (animal,name,color) values ('"+Animal+"','"+NameAnimal+"','"+ColorAnimal+"')");
+                int i =pStatement.executeUpdate();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return connection;
         }
 
+        static TestConection1 testdBconnect = new TestConection1();
 
-        public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        public void testConection1delete(){
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                connection= DriverManager.getConnection(URL,USER_NAME,PASSWORD);
+                System.out.println("Enter the number of the animal to be deleted: ");
+                //tut mae buty vuvid
+                int del = scanner1.nextInt();
+                PreparedStatement pStatement=connection.prepareStatement("delete from Animal where id='"+del+"'");
+
+                int i = pStatement.executeUpdate();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+
+            }
+
+        }
+
+        public static void main(String[] args) throws ClassNotFoundException {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
        /* TestConection.statement.executeUpdate("CREATE TABLE homeanimalstest (" +
@@ -65,40 +85,43 @@ import java.sql.*;
 
             boolean quit = false;
             int menuItem;
-
-            try {
-                while (scan != 7) {
+            do {
+                try {
                     Scanner in = new Scanner(System.in);
-                    System.out.println("MENU Home Animal");
-                    System.out.println("Write number: " +
-                            "\n 1.Add animal and name" +
-                            "\n 2.Edit data" +
-                            "\n 3.Delete the animal" +
-                            "\n 4.Search" +
-                            "\n 5.Output of the list" +
-                            "\n 6.Calculator" +
-                            "\n 7.Help");
+
+                    System.out.println("_________________");
+                    System.out.println("MENU Home Animals");
+                    System.out.println("-----------------");
+                    System.out.println("""
+                            Write number:\s
+                             1. Add animal, name and color
+                             2. Edit data
+                             3. Delete the animal
+                             4. Search
+                             5. Output of the list
+                             6. Calculator
+                             7. Help""");
                     System.out.println("0. Quit");
 
                     menuItem = in.nextInt();
 
-
                     switch (menuItem) {
                         case 1:
-                            TestConection.statement.executeUpdate("INSERT INTO homeanimalstest (animal, name, color) value ('Dog', 'Pol', 'Red')");
+                            testdBconnect.testConection1();
                             break;
                         case 2:
-
                             break;
                         case 3:
-
+                            testdBconnect.testConection1delete();
+                            break;
                         case 4:
-
+                            break;
                         case 5:
                             ResultSet resultSet = TestConection.statement.executeQuery("SELECT * FROM homeanimalstest");
 
                             while (resultSet.next()) {
-                                System.out.println(resultSet.getString(2) + " " +
+                                System.out.println( resultSet.getString(1) + " " +
+                                        resultSet.getString(2) + " " +
                                         resultSet.getString(3) + " " +
                                         resultSet.getString(4));
 
@@ -113,7 +136,6 @@ import java.sql.*;
                             break;
 
                         case 7:
-
                             FileReader fileReaderHelp = new FileReader("help.txt");
 
                             int h;
@@ -125,14 +147,13 @@ import java.sql.*;
                             break;
 
                         case 0:
-                            System.out.println("Good bye!");
                             quit = true;
                             break;
-                    }
+                    } } catch (Exception e) {
+                    System.err.println("Please enter a number from 1 to 7");
                 }
-            } catch (Exception e) {
-                System.err.println("Please enter a number from 1 to 7");
-            }
+            } while (!quit) ;
+            System.out.println("Good bye!");
 
         }
 
